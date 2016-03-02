@@ -6,6 +6,42 @@ binding [here](https://github.com/dannywillems/ocaml-cordova-plugin-vibration)
 This application plays the Imperial March and Mario Bross theme song. Comment or
 uncomment in *app/ml/test.ml* the song you want.
 
+## How to compile ?
+
+Read the section 'Using js_of_ocaml to develop in OCaml on mobile' first.
+
+You need to install the plugin *cordova-plugin-vibration*. The Makefile contains
+a target to do it. Use
+```
+make init_plugins
+```
+
+Add your platform:
+```
+# ios
+make add_ios
+# android
+make add_android
+```
+
+Build the archive for your platform:
+```
+# ios
+make build_ios
+# android
+make build_android
+```
+
+The archive is copied in the build/your_platform].
+
+If you use Android, you can install and run directly on your phone:
+```
+# install, no run
+make install_android
+# install and run
+make run_android
+```
+
 ## What is cordova ?
 
 [Wikipedia](https://en.wikipedia.org/wiki/Apache_Cordova):
