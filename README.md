@@ -154,4 +154,5 @@ The Makefile allows you to keep old built archive.
   byte files.
 * clean_css: remove generated css files.
 
-* init_plugins: initialize plugins you need. Empty for this project.
+* init_plugins: initialize plugins you need. Contains cordova-plugin-vibration
+  for this project.
