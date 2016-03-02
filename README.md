@@ -1,4 +1,6 @@
-# OCaml-cordova-example
+# OCaml-cordova-plugin-vibration-example
+
+**Use the vibration of your smartphone in OCaml !**
 
 This is an example of the binding to the *vibration cordova plugin*. See the
 binding [here](https://github.com/dannywillems/ocaml-cordova-plugin-vibration)
