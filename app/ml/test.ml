@@ -39,9 +39,9 @@ let imperial_march =
 
 let onload _ =
   (* Mario Bross *)
-  (*Vibration.navigator##(vibrate_pattern mario_bross);*)
+  (*Vibration.vibration##(vibrate_pattern mario_bross);*)
   (* Imperial March *)
-  Vibration.navigator##(vibrate_pattern imperial_march);
+  Vibration.vibration##(vibrate_pattern imperial_march);
 
   Js._false
 
