@@ -12,18 +12,18 @@ uncomment in *app/ml/test.ml* the song you want.
 
 Read the section 'Using js_of_ocaml to develop in OCaml on mobile' first.
 
-You need to install the plugin *cordova-plugin-vibration*. The Makefile contains
-a target to do it. Use
-```Makefile
-make init_plugins
-```
-
 Add your platform:
 ```Makefile
 # ios
 make add_ios
 # android
 make add_android
+```
+
+You need to install the plugin *cordova-plugin-vibration*. The Makefile contains
+a target to do it. Use
+```Makefile
+make init_plugins
 ```
 
 Build the archive for your platform:
