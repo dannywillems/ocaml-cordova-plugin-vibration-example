@@ -12,6 +12,13 @@ uncomment in *app/ml/test.ml* the song you want.
 
 Read the section 'Using js_of_ocaml to develop in OCaml on mobile' first.
 
+Create a hook and www directory to have a cordova project structure (these
+directories are removed because they're not useful for this dev process):
+
+```Makefile
+mkdir hooks www
+```
+
 Add your platform:
 ```Makefile
 # ios
