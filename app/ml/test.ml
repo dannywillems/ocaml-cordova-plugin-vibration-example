@@ -1,48 +1,39 @@
+let doc = Dom_html.document
+
 let mario_bross =
-  let int_array : int Js.js_array Js.t = new%js Js.array_length 14 in
-  Js.array_set int_array 0 125;
-  Js.array_set int_array 1 75;
-  Js.array_set int_array 2 125;
-  Js.array_set int_array 3 275;
-  Js.array_set int_array 4 200;
-  Js.array_set int_array 5 275;
-  Js.array_set int_array 6 125;
-  Js.array_set int_array 7 75;
-  Js.array_set int_array 8 125;
-  Js.array_set int_array 9 275;
-  Js.array_set int_array 10 200;
-  Js.array_set int_array 11 600;
-  Js.array_set int_array 12 200;
-  Js.array_set int_array 13 600;
-  int_array
+  Js.array [|125;75;125;275;200;275;125;75;125;275;200;600;200;600|]
 
 let imperial_march =
-  let int_array : int Js.js_array Js.t = new%js Js.array_length 17 in
-  Js.array_set int_array 0 500;
-  Js.array_set int_array 1 110;
-  Js.array_set int_array 2 500;
-  Js.array_set int_array 3 110;
-  Js.array_set int_array 4 450;
-  Js.array_set int_array 5 110;
-  Js.array_set int_array 6 200;
-  Js.array_set int_array 7 110;
-  Js.array_set int_array 8 170;
-  Js.array_set int_array 9 40;
-  Js.array_set int_array 10 450;
-  Js.array_set int_array 11 110;
-  Js.array_set int_array 12 200;
-  Js.array_set int_array 13 110;
-  Js.array_set int_array 14 170;
-  Js.array_set int_array 15 40;
-  Js.array_set int_array 16 500;
-  int_array
+  Js.array [|500;110;500;110;450;110;200;110;170;40;450;110;200;110;170;40;500|]
 
-let onload _ =
-  (* Mario Bross *)
-  (*Vibration.vibration##(vibrate_pattern mario_bross);*)
-  (* Imperial March *)
-  Vibration.vibration##(vibrate_pattern imperial_march);
-
+let on_device_ready _ =
+  let v = Vibration.vibration () in
+  let but_bross = Dom_html.createButton doc in
+  let but_imperial = Dom_html.createButton doc in
+  let but_stop = Dom_html.createButton doc in
+  but_bross##.innerHTML := Js.string "Mario Bross";
+  but_imperial##.innerHTML := Js.string "Imperial March";
+  but_stop##.innerHTML := Js.string "Stop";
+  Lwt.async
+  ( fun () ->
+    Lwt_js_events.clicks but_imperial
+    ( fun _ev _thread -> v##(vibrate_pattern imperial_march); Lwt.return ())
+  );
+  Lwt.async
+  ( fun () ->
+    Lwt_js_events.clicks but_bross
+    ( fun _ev _thread -> v##(vibrate_pattern mario_bross); Lwt.return ())
+  );
+  Lwt.async
+  ( fun () ->
+    Lwt_js_events.clicks but_stop
+    ( fun _ev _thread -> v##(cancelVibration); Lwt.return ())
+  );
+  Dom.appendChild doc##.body but_bross;
+  Dom.appendChild doc##.body but_imperial;
+  Dom.appendChild doc##.body but_stop;
   Js._false
 
-let _ = Dom_html.window##.onload := Dom_html.handler onload
+let _ =
+  Dom.addEventListener doc (Dom.Event.make "deviceready")
+  (Dom_html.handler on_device_ready) Js._false
