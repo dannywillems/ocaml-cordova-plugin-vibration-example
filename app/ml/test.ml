@@ -6,12 +6,11 @@ let mario_bross =
 let imperial_march =
   [|500;110;500;110;450;110;200;110;170;40;450;110;200;110;170;40;500|]
 
-let on_device_ready _ =
+let on_device_ready () =
   let but_bross = Dom_html.createButton doc in
   let but_imperial = Dom_html.createButton doc in
   let but_stop = Dom_html.createButton doc in
 
-  Cordova_vibration.vibrate_pattern imperial_march;
   but_bross##.innerHTML := Js.string "Mario Bross";
   but_imperial##.innerHTML := Js.string "Imperial March";
   but_stop##.innerHTML := Js.string "Stop";
@@ -33,9 +32,7 @@ let on_device_ready _ =
 
   Dom.appendChild doc##.body but_bross;
   Dom.appendChild doc##.body but_imperial;
-  Dom.appendChild doc##.body but_stop;
-  Js._false
+  Dom.appendChild doc##.body but_stop
 
 let _ =
-  Dom.addEventListener doc (Dom.Event.make "deviceready")
-  (Dom_html.handler on_device_ready) Js._false
+  Cordova.Event.device_ready on_device_ready
